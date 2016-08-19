@@ -322,6 +322,383 @@ public class Array {
                 }
         }
         
-        
+        /*17) Leaders in an array O(n) approach */
+	public void leadersInArrayFromEnd(List<Integer> arrayList) {
+		int len = arrayList.size();
+		int max_from_end = arrayList.get((len-1));
+		System.out.print(max_from_end);
+		for(int i=(len-2);i>=0;i--){
+			if(arrayList.get(i)>max_from_end){
+				max_from_end = arrayList.get(i);
+				System.out.print(" "+max_from_end);
+			}
+		}
+				
+	}
+	
+	/*18) Array rotation temp array approach*/
+	public void rotate(int arr[],int d,int n){
+		int temp[] = new int[d];
+		
+		for(int i=0;i<d;i++){
+			temp[i] = arr[i];
+			}
+		for(int i=0;i<(n-d);i++){
+			arr[i] = arr[i+d];
+		}
+		for(int i=0;i<d;i++){
+			arr[n-d+i] = temp[i];
+		}
+		for(int i=0;i<n;i++){
+			System.out.println(arr[i]);
+		}
+	}
+	
+	/* 19) Array rotation (one by one rotate) O(n*d)*/
+	public void rotateArrayOneByOne(int arr[], int d, int n){
+		for(int i=0;i<d;i++){
+			arrayRotate(arr,d,n);
+		}
+		for(int i=0;i<n;i++){
+		System.out.print(arr[i]);
+		}
+	}
+	public void arrayRotate(int arr[], int d, int n) {
+		int temp = arr[0];
+		for(int i=0; i<(n-1);i++){
+			arr[i] = arr[i+1];
+		}
+		arr[n-1] = temp;
+	}
+	
+	/*GCD */
+	
+	/* 20) Reversal algorithm for array rotation */
+	public void reversalAlgoForArrayRotation(int arr[], int d, int n) {
+		reverseArrayIterative(arr, 0, d-1);
+		reverseArrayIterative(arr, d, n-1);
+		reverseArrayIterative(arr, 0, n-1);
+		for(int i=0;i<n;i++){
+			System.out.println(arr[i]);
+		}
+	}
+	/*21) Maximum sum such that no two elements are adjacent O(n)*/
+	public int maximumSumSuchThatNoElementsAdjacent(List<Integer> arrayList, int n) {
+		int incl,excl;
+		int excl_new;
+		incl = arrayList.get(0);
+		excl = 0;
+		for(int i=1;i < n; i++) {
+			excl_new = (incl > excl) ? incl:excl;
+			incl = excl + arrayList.get(i);
+			excl = excl_new;
+		}
+		return (incl>excl)?incl:excl;
+	}
+	
+	/*22) Sort elements by frequency */
+	public void sortElementsByFrequency(List<Integer> arrayList, int n){
+		List<Integer> countList = new ArrayList<Integer>();
+		int temp,temp1;
+		int count=0;
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				if(arrayList.get(i)==arrayList.get(j)){
+					count++;
+					}
+				countList.add(i,count);
+			}
+		}
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				if(countList.get(i)>countList.get(j)){
+					temp = countList.get(i);
+					temp1 = arrayList.get(i);
+					//countList.add(i) = countList.get(j);
+				}
+			}
+		}
+	}
+	/* 23.Two elements whose sum is closest to zero O(n square approach)*/
+	public void numbersWithSumClosestToZero(int arr[], int n) {
+		int cursum = Integer.MAX_VALUE, sum =Integer.MAX_VALUE;
+		int a = 0,b = 0;
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				if(i!=j){
+					cursum = arr[i]+arr[j];
+					if(cursum < 0){
+						cursum = -cursum;
+					}
+					if(cursum<sum) {
+						sum = cursum;
+						a = arr[i];
+						b = arr[j];
+					}
+				}
+			}
+		}
+		System.out.println(a+" "+b);
+	}
+	/* 24.Two elements whose sum is closest to zero. Using sorting */
+	public void numbersWithSumClosestToZeroSorting(int arr[], int n) {
+		Arrays.sort(arr);
+		int cursum = Integer.MAX_VALUE;
+		int sum = Integer.MAX_VALUE;
+		int l=0,r=(n-1);
+		int a=0, b=0;
+		while(l<r) {
+			cursum = arr[l]+arr[r];
+			if(Math.abs(cursum)<Math.abs(sum)) {
+				sum = cursum;
+				a=arr[l];
+				b=arr[r];
+			}
+			if(arr[l]+arr[r]<0){
+				l++;
+			}
+			if(arr[l]+arr[r]>0) {
+				r--;
+			}
+		}
+		System.out.println(a+" "+b);
+	}
+	
+	/* 25. Count Inversions in an array */
+	public int countInversionsInArray(List<Integer> arrayList, int n){
+		int count=0;
+		for(int i=0;i<n;i++){
+			for(int j=i+1;j<n;j++){
+				if(arrayList.get(i)>arrayList.get(j)){
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	/* 26. Find the smallest and second smallest element in an array */
+	public void smallestAndSecondSmallestElement(List<Integer> arrayList, int n) {
+		int min = Integer.MAX_VALUE;
+		int smin = Integer.MAX_VALUE;
+		int odiff = Integer.MAX_VALUE;
+		int diff;
+		for(int i:arrayList) {
+			if(i<min) {
+				min = i;
+			}
+		}
+		for(int i:arrayList){
+			diff = Math.abs(min-i);
+			if(diff<odiff && diff!=0) {
+				odiff = diff;
+				smin = i;
+			}
+		}
+		System.out.println(min+" "+smin);
+	}
+	/* 27.	Check for Majority Element in a sorted array */
+	public boolean isMajority(int[] a, int n){
+		for(int i=0;i<n;i++){
+			if(((i+(n/2))<n) && a[i]==a[i+(n/2)]){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/* 28. Segregating 0s and 1s in an array Method1 */
+	public void segregateZeroesAndOnes(int arr[], int n) {
+		int count=0;
+		for(int i=0;i<n;i++){
+			if(arr[i] == 0){
+				count++;
+			}
+		}
+		for(int i=0;i<n;i++){
+			if(i<count){
+				arr[i] = 0;
+			} else {
+				arr[i] = 1;
+			}
+		}
+		for(int i:arr){
+			System.out.print(i);
+		}
+	}
+	/* 29. Segregating 0s and 1s. Method 2 */
+	public void segregateZeroesAndOnesOptimized(int arr[], int n) {
+		int left = 0;
+		int right = n-1;
+		while(left < right) {
+			while(arr[left]==0 && left<right) {
+				left++;
+			}
+			while(arr[right] ==1 && left<right){
+				right--;
+			}
+			if(left<right){
+				arr[left] = 0;
+				arr[right] = 1;
+				left++;
+				right--;
+			}
+		}
+		for(int i:arr){
+			System.out.print(i);
+		}
+	}
+	/*30. K largest element is an array. Using Sorting */
+	public void kLargestElementsInArray(List<Integer> arrayList, int n, int k) {
+		Collections.sort(arrayList);
+		for(int i=(n-k);i<n;i++){
+			System.out.println(arrayList.get(i));
+		}
+	}
+	/* 31. Maximum difference between two elements such that larger element appears after the smaller number */
+	public int maxDiffWithLargeOnRightSide(int arr[], int n) {
+		int max_diff = arr[1]-arr[0];
+		int min = arr[0];
+		for(int i=0; i<n ;i++) {
+			if(arr[i]-min > max_diff) {
+				max_diff = arr[i]-min;
+			}
+			if(arr[i]<min){
+				min = arr[i];
+			}
+		}
+		return max_diff;
+	}
+	/*32 Union and Intersection of two sorted arrays */
+	public void unionAndIntersectionOfSortedArrays(List<Integer> listA, List<Integer> listB, int sizea, int sizeb){
+		List<Integer> listC = new ArrayList<Integer>();
+		List<Integer> listD = new ArrayList<Integer>();
+		for(int i:listA){
+			listC.add(i)
+;		}
+		for(int i:listB) {
+			if(!listC.contains(i)){
+				listC.add(i);
+			}
+		}
+		System.out.println("\nUnion:");
+		
+		System.out.print(listC);
+		for(int i:listB){
+			if(listA.contains(i)){
+				listD.add(i);
+			}
+		}
+		System.out.println("\nIntersection:");
+		System.out.println(listD);
+	}
+	/* 33. Floor and Ceiling in a sorted array */
+	public void floorAndCeilingInAnArray(int arr[], int n, int x){
+		int ceil = -1, floor = -1;
+		
+		for(int i=1;i<n;i++) {
+			if(arr[i] == x && arr[i+1] == x){
+				ceil = x;
+				floor = x;
+				System.out.println("Ceil:"+ceil+"Floor:"+floor);
+				break;
+			}
+			else if(arr[i] == x){
+				ceil = arr[i-1];
+				floor = arr[i+1];
+				System.out.println("Ceil:"+ceil+"Floor:"+floor);
+				break;
+			}
+			
+		}
+		if(ceil == -1){
+			System.out.println("Ceil doesnt exist");
+		}
+		if(floor == -1){
+			System.out.println("Floor doesnt exist");
+		}
+		if(ceil== -1 && floor == -1){
+			System.out.println("Ceil and floor do not exist");
+		}
+	}
+	/* 34.A Product Array Puzzle */
+	public void productArrayPuzzle(int arr[], int size) {
+		int[] prod = new int[size];
+		int[] low = new int[size];
+		int[] high = new int[size];
+		low[0]=1;
+		high[0]=1;
+		for(int i=0;i<size;i++){
+		
+		}
+	}
+	/* 35. Segregate odd and even numbers */
+	public void segregateOddEvenNumbers(int arr[]) {
+		int left =0;
+		int right = arr.length -1;
+		int temp;
+		while(left<right) {
+			while(arr[left]%2==0){
+				left++;
+			}
+			while(arr[right]%2!=0){
+				right--;
+			}
+			if(left!=right){
+				temp = arr[left];
+				arr[left] = arr[right];
+				arr[right] = temp;
+				left++;
+				right--;
+			}
+		}
+		for(int i:arr){
+			System.out.print(i);
+		}
+	}
+	/* 40. Find the two repeating elements in a given array O(nlogn) */
+	public void findTwoRepeatingElementsInArray(List<Integer> arraylist, int n){
+		Collections.sort(arraylist);
+		int a = Integer.MIN_VALUE;
+		int b = Integer.MIN_VALUE;
+		
+		for(int i=1;i<n;i++){
+			if(arraylist.get(i)-arraylist.get(i-1)==0){
+				if(a==Integer.MIN_VALUE){
+				a = arraylist.get(i);
+				} else{
+					b=arraylist.get(i);
+				}
+			}
+		}
+		System.out.println(a+" "+b);
+	}
+	
+	/* 41. Sort an array of 0s, 1s and 2s */
+	public void sortAnArrayOf0s1sAnd2s(List<Integer> arrayList, int n) {
+		int c1=0, c2=0;
+		for(int i:arrayList) {
+			if(i==0){
+				c1++;
+			} else if(i==1){
+				c2++;
+			}
+		}
+		
+		arrayList.clear();
+		System.out.println();
+		for(int i=0;i<n;i++) {
+			if(i<c1){
+			arrayList.add(i,0);
+			} if(i>=c1 && i<(c2+c1)){
+				arrayList.add(i,1);
+			} if(i>=(c2+c1)) {
+				arrayList.add(i,2);
+			}
+			
+		}
+		System.out.println(arrayList);
+		
+	}
+	
         
 }
