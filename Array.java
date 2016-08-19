@@ -19,7 +19,7 @@ public class Array {
         
         /* 2) Problem to check whether a given sum is present in the array. 
          * using sorting */
-        public boolean arraySumSort(int a[], int s){
+        public boolean givenSumPresentInArrayUsingSorting(int a[], int s){
                 int n= a.length;
                 Arrays.sort(a);
                 int l = 0;
