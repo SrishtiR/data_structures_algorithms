@@ -5,7 +5,7 @@ public class Array {
          * 1) Problem to check whether a given sum is present in the array. 
          * O(n square) implementation 
          */
-        public boolean arraySum(int a[], int s){
+        public boolean givenSumPresentInArray(int a[], int s){
                 int n = a.length;
                 for(int i=0;i<n;i++){
                         for(int j=0;j<n;j++){
