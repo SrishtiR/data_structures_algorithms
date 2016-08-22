@@ -699,6 +699,35 @@ public class Array {
 		System.out.println(arrayList);
 		
 	}
+	/* 42. Find duplicates in O(n) time and O(1) extra space (the array contains elements from 0 to n-1) */
+	public void findDuplicatesInOnTime(int[] arr, int size) {
+		for(int i=0;i<size;i++){
+			if(arr[Math.abs(arr[i])] > 0){
+				arr[Math.abs(arr[i])] = -arr[Math.abs(arr[i])];
+			} else {
+				System.out.println(i+"th element is repeating");
+			}
+		}
+	}
+	
+	/* 43. Equilibrium index of an array */
+	public void equilibrium(int[] arr, int size){
+		int sumlow = 0, sumhigh = 0;
+		for(int i=0;i<size;i++){
+			sumlow=0;
+			sumhigh=0;
+			for(int j=0;j<i;j++){
+				sumlow = sumlow+arr[j];
+			}
+			for(int k=i+1;k<size;k++){
+				sumhigh = sumhigh + arr[k];
+			}
+		//	System.out.println(i+" "+sumlow+" "+sumhigh);
+			if(sumlow == sumhigh){
+				System.out.println(i);
+			}
+		}
+	}
 	
         
 }
