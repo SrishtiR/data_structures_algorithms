@@ -795,5 +795,98 @@ public class Array {
 			return findFirstMissing(array,mid+1,end);
 		}
 	}
+	/* 48. Count the number of occurrences in a sorted array */
+	int countOccurences(List<Integer> arrayList, int size, int x) {
+		int count = 0;
+		for(int i:arrayList) {
+			if(i==x){
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/* 49. Given an array arr[], find the maximum j – i such that arr[j] > arr[i] */
+	public int maxJIArrJMoreThanArrI(int arr[], int size){
+		int maxdiff=Integer.MIN_VALUE;
+		int diff;
+		for(int i=0;i<size;i++){
+			for(int j=i+1;j<size;j++){
+				
+				if(arr[j]>arr[i]){
+				diff = j-i;
+				if(diff>maxdiff){
+					maxdiff = diff;
+				}
+				}
+			}
+		}
+		return maxdiff;
+	}
+	
+	/* 50. Find whether an array is subset of another array
+	 *  using hashtable 
+	 *  does not work if there are repetitions */
+	public boolean findWhetherArrayIsSubsetOfAnother(int[] arr1, int[] arr2, int size1, int size2){
+		Hashtable<Integer,Integer> array = new Hashtable<Integer,Integer>();
+		for(int i=0;i<size1;i++){
+			array.put(i, arr1[i]);
+		}
+		for(int i=0;i<size2;i++){
+			if(!array.containsValue(arr2[i])){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/* 51. Find whether an array is subset of another array 
+	 * using sorting and merging 
+	 * works in case of repetitions */
+	public boolean findWhetherArrayIsSubsetOfAnotherSS(int[] arr1, int[] arr2, int size1, int size2){
+		Arrays.sort(arr1);
+		Arrays.sort(arr2);
+		int i=0,j=0;
+		while(i<size1 && j<size2){
+			if(arr1[i]<arr2[j]){
+				i++;
+			}
+			else if(arr1[i]==arr2[j]){
+				i++;
+				j++;
+			} else if(arr1[i] > arr2[j]) {
+				return false;
+			}
+			
+		}
+		if(j<size2)
+			return false;
+		else
+			return true;
+	}
+	/* 52. Minimum distance between two elements in an array O(n) approach */
+	public int minimumDistanceBetweenTwoGivenElements(int arr[], int a, int b, int size) {
+		int prev = -1;
+		int i=0;
+		int min_dist = Integer.MAX_VALUE;
+		for(i=0;i<size;i++) {
+			if((arr[i] == a || arr[i] == b)){
+				prev = i;
+				break;
+			} 
+			
+		}
+		for(;i<size;i++){
+			if(arr[i] ==a || arr[i] ==b ){
+				if(arr[prev] != arr[i] && (i-prev) < min_dist){
+					min_dist = i-prev;
+					prev =i;
+				} else {
+					prev = i;
+				}
+			}
+		}
+		return min_dist;
+	}
         
 }
