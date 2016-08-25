@@ -888,7 +888,9 @@ public class Array {
 		}
 		return min_dist;
 	}
-	/* 53. Find the repeating and the missing | Added 3 new methods*/
+	/* 53. Find the repeating and the missing 
+	using hashmap
+	time complexity O(n) */
 	public void findRepeatingAndMissing(int[] arr, int size){
 		int missing = 0,repeating=0;
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
