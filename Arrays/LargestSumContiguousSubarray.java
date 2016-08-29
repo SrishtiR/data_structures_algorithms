@@ -22,17 +22,5 @@ public class LargestSumContiguousSubarray {
         /* Largest Sum Contiguous Subarray
          *  Dynamic Programming
          */
-        /*8) Missing number sum approach*/
-        public int missingInteger(List<Integer> arrayList) {
-                int sum = 0;
-                int l = arrayList.size();
-                
-                int s = (l+1)*(l+2)/2;
-                int missingNumber;
-                for(int i:arrayList){
-                        sum = sum +i;
-                }
-                missingNumber = s - sum;
-                return missingNumber;
-        }
+       
 }
