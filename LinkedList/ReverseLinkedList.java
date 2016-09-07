@@ -15,6 +15,22 @@ public class ReverseLinkedList extends LinkedListInsertion{
 		node = prev;
 		return node;
 	}
+	Node reverseLLRecursive(Node node, Node prev) {
+		if(node == null) {
+			return  null;
+		}
+		if(node.next == null) {
+			head = node;
+			node.next = prev;
+			return null;
+		}
+		Node nextl = node.next;
+		node.next = prev;
+		reverseLLRecursive(nextl, node);
+		
+		return head;
+	}
+	
 	void printll(Node node) {
 		while(node!=null){
 			System.out.println(node.data);
