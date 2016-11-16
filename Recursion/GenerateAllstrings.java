@@ -19,8 +19,8 @@ public class GenerateAllstrings {
 			return;
 		}
 		for(int i = 0; i< n; i++) {
-			System.out.println(i);
-			System.out.println(k);
+			//System.out.println(i);
+			//System.out.println(k);
 			String newPrefix = prefix + set[i];
 			printKLengthRec(set, newPrefix, n, k-1);
 			
